@@ -183,3 +183,68 @@ python main.py --arch gpt2 --pretrained \
 `>>>Test loss:       1.1640625`
 
 ![Overview](imgs/multi_layer.png)
+
+
+## Datmix Experiments 
+
+Datamix Code 
+```bash 
+python main.py --arch gpt2 \
+            --dataset tinycodes --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-datamix-tinycodes-gpt2-0.0008-1-tinycodes-openwebtext_320000_finetuned.pt 
+```
+`>>>Test loss:       0.8243098258972168`
+
+Datamix Math
+```bash
+python main.py --arch gpt2 \
+            --dataset orca-math-problems --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-datamix-orca-math-gpt2-0.0008-1-orca-math-problems-openwebtext_320000_finetuned.pt
+```
+`>>>Test loss:       0.7869842648506165`
+
+Datamix Code model eval on pretraining data
+```bash 
+python main.py --arch gpt2 \
+            --dataset openwebtext --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-datamix-tinycodes-gpt2-0.0008-1-tinycodes-openwebtext_320000_finetuned.pt 
+```
+`>>>Test loss:       3.034482955932617`
+
+Datamix Math model eval on pretraining data
+```bash
+python main.py --arch gpt2 \
+            --dataset openwebtext --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-datamix-orca-math-gpt2-0.0008-1-orca-math-problems-openwebtext_320000_finetuned.pt
+```
+`>>> Test loss:       3.046091318130493`
+
+In comparison lets compare how the original math/ code do on the pretraining dataset(openwebtext)
+
+Code Model
+```bash
+python main.py --arch gpt2 \
+            --dataset openwebtext --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-tinycodes-gpt2-0.0008-1-tinycodes_finetuned.pt
+```
+`>>> Test loss:       3.5961058139801025`
+
+Math Model 
+```bash
+python main.py --arch gpt2 \
+            --dataset openwebtext --batch_size 16 --context 1024 \
+            --eval --chkpt /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-orca-math-gpt2-0.0008-1-orca-math-problems_finetuned.pt
+```
+`>>> Test loss:       4.028642654418945`
+
+Routed Model eval 
+```bash 
+python main.py --arch gpt2 --pretrained \
+            --datasets gsm-hard --batch_size 92 --context 1024 --train_tokens 160000 \
+            --optim adamw --lr 5e-3 --wd 1e-1 --name gpt2_route --router_method standard --topk 2 \
+            --router_ckpts /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-code_instructions-gpt2-0.0008-1-code_instructions_finetuned.pt \
+                           /data/scratch-oc40/pulkitag/jyop/gpt-merge-out/gpt2-tinycodes-gpt2-0.0008-1-tinycodes_finetuned.pt \
+            --chkpt out/gpt_routed_datamix-gpt2-0.005-2-False-gsm-hard_routed.pt \
+            --name gpt_routed --eval
+```
+`>>> Test loss:       1.3515625`
