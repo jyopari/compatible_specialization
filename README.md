@@ -5,23 +5,21 @@ This repository allows you to reproduce the key results for our paper.
 
 > **Collective Model Intelligence Requires Compatible Specialization**  
 > by [Jyothish Pari](https://jyopari.github.io/), [Samy Jellasi](https://sjelassi.github.io/), [Pulkit Agrawal](https://people.csail.mit.edu/pulkitag/)   
-> [Link to Paper](link) \
-> [Link to Website](link)
+> [Link to Paper](https://arxiv.org/abs/2411.02207v1) \
+> [Link to Website](https://jyopari.github.io/compatible_specialization)
 
 ![Overview](imgs/main.png)
 
 
 ## Installation
 
-To run the code, clone this repository and install the required packages:
+To run the code, clone this repository and install the required packages and download the checkpoints:
 
 ```bash
-git clone https://github.com/your-username/repo-name.git
-cd repo-name
 pip install -r requirements.txt
 ```
+Downlaod the checkpoints [here](https://www.dropbox.com/scl/fo/ze7k82shn3fb2rc6061j9/ACH9oo6ilKhrbVBDYWAvwhI?rlkey=7fmxr8ag1psj4ebo5rbri45wa&st=c3rp8a6o&dl=0)
 
-Downlaod the checkpoints here [link](link)
 
 ## Experiments
 We will section the experiments in two parts, one being compatible speclization over time, and the other being within models. We will focus on merging a `math` finetuned LM with a `coding` finetuned LM to model [gsm-hard](https://huggingface.co/datasets/reasoning-machines/gsm-hard)
